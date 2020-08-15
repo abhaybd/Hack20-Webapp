@@ -34,6 +34,7 @@ export default class Database {
     }
 
     getUsersInArea(lat, long, precision, callback) {
+        // TODO: map distance to precision
         const start = Geohash.encode(lat, long, precision);
         const end = start.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
         this.users
