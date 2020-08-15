@@ -27,8 +27,8 @@ export default class Database {
         const hash = Geohash.encode(lat, long);
         this.users.doc(name).set({
             location: hash,
-            lat: lat,
-            long: long,
+            latitude: lat,
+            longitude: long,
             timestamp: Date.now()
         });
     }
@@ -44,7 +44,7 @@ export default class Database {
             .then(function (q) {
                 callback(q.docs.map(doc => {
                     const data = doc.data();
-                    return {lat: data.lat, lng: data.long};
+                    return {lat: data.latitude, lng: data.longitude};
                 }));
             });
     }
