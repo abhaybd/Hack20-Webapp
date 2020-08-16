@@ -81,7 +81,7 @@ class Database {
             queries.forEach(q => {
                 q.docs.forEach(doc => {
                     const data = doc.data();
-                    if (now - data.timestamp < 30*60*1000) { // 30 mins
+                    if (now - data.timestamp < 30*60*1000 || true) { // 30 mins
                         ret.push({lat: data.latitude, lng: data.longitude});
                     }
                 });
