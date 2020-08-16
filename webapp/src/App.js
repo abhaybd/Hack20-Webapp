@@ -11,12 +11,12 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NavigationBar } from './NavigationBar';
 import Sidebar from './Sidebar';
+
 let currentLocation = { lat: 47.655548, lng: -122.303200 };
 
 function App() {
   return (
     <div>
-      <Map center={currentLocation} />
       <React.Fragment>
         <Router>
           <NavigationBar />
@@ -28,6 +28,7 @@ function App() {
           </Switch>
         </Router>
       </React.Fragment>
+      <Map center={currentLocation} />
     </div>
   );
 }
