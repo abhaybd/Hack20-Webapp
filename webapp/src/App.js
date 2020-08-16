@@ -2,10 +2,35 @@ import React from 'react';
 import './App.css';
 import Map from "./Map";
 
-const uw = {lat: 47.655548, lng: -122.303200};
+import { Home } from './Home';
+import { About } from './About';
+import { NoMatch } from './NoMatch';
 
-const App = () => (
-  <Map center={uw}/>
-);
+
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { NavigationBar } from './NavigationBar';
+import Sidebar from './Sidebar';
+// const uw = {lat: 47.655548, lng: -122.303200};
+
+// const App = () => (
+//   <Map center={uw}/>
+// );
+
+function App(){
+  return(
+    <React.Fragment>
+      <Router>
+        <NavigationBar />
+        <Sidebar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route component={NoMatch} />
+        </Switch>
+      </Router>
+    </React.Fragment> 
+  );
+}
 
 export default App;
