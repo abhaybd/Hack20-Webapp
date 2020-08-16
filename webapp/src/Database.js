@@ -33,8 +33,28 @@ class Database {
         });
     }
 
-    getUsersInArea(lat, long, precision, callback) {
-        // TODO: map distance to precision
+    getPrecision(latDist, longDist) {
+        // reference: https://www.movable-type.co.uk/scripts/geohash.html
+        latDist = Math.abs(latDist);
+        longDist = Math.abs(longDist);
+        if (longDist > 1250 || latDist > 625) return 1;
+        else if (longDist > 156 || latDist > 156) return 2;
+        else if (longDist > 39.1 || latDist > 19.5) return 3;
+        else if (longDist > 4.9 || latDist > 4.9) return 4;
+        else if (longDist > 1.2 || latDist > 0.6) return 5;
+        else if (longDist > 0.153 || latDist > 0.153) return 6;
+        else return 7;
+    }
+
+    getUsersInArea(latMin, latMax, longMin, longMax, callback) {
+        let lat = (latMin + latMax) / 2;
+        let long = (longMin + longMax) / 2;
+
+        let latDist = Math.abs(latMax - latMin) * 111; // 111km to the degree of latitude
+        let longDist = Math.abs(longMax - longMin) * 111.3; // these many km at equator
+
+        let precision = this.getPrecision(latDist, longDist);
+
         const start = Geohash.encode(lat, long, precision);
         const end = start.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
         this.users
