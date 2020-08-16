@@ -9,11 +9,11 @@ const GridWrapper = styled.div`
   margin-right: 6em;
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(25px, auto);
-`; 
+`;
 
 export const About = () => (
-  <GridWrapper>
-    <h2>About Page</h2>
-    <p>UW HEATMAP ABOUT</p>
-  </GridWrapper>
+    <GridWrapper>
+        <h2>About Page</h2>
+        <p>UW HEATMAP ABOUT</p>
+    </GridWrapper>
 )

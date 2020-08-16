@@ -11,12 +11,12 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NavigationBar } from './NavigationBar';
 import Sidebar from './Sidebar';
-const uw = {lat: 47.655548, lng: -122.303200};
+const uw = { lat: 47.655548, lng: -122.303200 };
 
-function App(){
-  return(
+function App() {
+  return (
     <div>
-      <Map center = {uw}/>
+      <Map center={uw} />
       <React.Fragment>
         <Router>
           <NavigationBar />
@@ -27,7 +27,7 @@ function App(){
             <Route component={NoMatch} />
           </Switch>
         </Router>
-      </React.Fragment> 
+      </React.Fragment>
     </div>
   );
 }

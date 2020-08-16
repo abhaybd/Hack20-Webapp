@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 `;
 
 export const NoMatch = () => (
-  <Wrapper>
-    <h2>No Match</h2>
-  </Wrapper>
+    <Wrapper>
+        <h2>No Match</h2>
+    </Wrapper>
 )
