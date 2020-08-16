@@ -5,8 +5,8 @@ const GridWrapper = styled.div`
   display: inline-block;
   grid-gap: 10px;
   margin-top: 1em;
-  margin-left: 6em;
-  margin-right: 6em;
+  margin-left: 1em;
+  margin-right: 1em;
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(25px, auto);
 `;

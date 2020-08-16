@@ -4,10 +4,11 @@ import Geocode from "react-geocode";
 import {db} from "./Database";
 
 const containerStyle = {
+    position: 'fixed',
     marginTop:'10x',
     top:'inherit',
     width: '100%',
-    height: '84vh'
+    height: '100vh'
 };
 
 const libraries = ["visualization", "places"];
