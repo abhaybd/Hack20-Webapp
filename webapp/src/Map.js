@@ -11,7 +11,7 @@ const libraries = ["visualization"];
 
 function renderHeatmap(data, LatLng, bounds) {
     // Za = latitude, Va = longitude
-    db.getUsersInArea(bounds.Za.i, bounds.Za.j, bounds.Va.i, bounds.Va.j, function(arr) {
+    db.getUsersInArea(bounds.Za.i, bounds.Za.j, bounds.Va.i, bounds.Va.j, function (arr) {
         console.log(`Found ${arr.length} users!`);
         data.clear();
         for (let coord of arr) {
@@ -22,9 +22,18 @@ function renderHeatmap(data, LatLng, bounds) {
 
 export default function Map(props) {
     const [map, setMap] = React.useState(null);
+    let currentLocation = {lat: 47.655548, lng: -122.303200};
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getPosition);
+    }
+
+    function getPosition(position) {
+        currentLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+    }
 
     const onLoad = React.useCallback(function callback(map) {
-        map.setCenter(props.center);
+        map.setCenter(currentLocation)
         setMap(map);
     }, []);
 
@@ -50,7 +59,7 @@ export default function Map(props) {
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={props.center}
-                zoom={props.zoom ?? 10}
+                zoom={props.zoom ?? 14}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
                 onIdle={onIdle}
