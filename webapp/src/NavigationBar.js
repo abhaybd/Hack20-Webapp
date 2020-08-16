@@ -1,13 +1,14 @@
 import React from 'react';
-import { Nav, Navbar, Form, FormControl } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import styled from 'styled-components';
+import Logo from "./maphusky2.png";
 
 
 const Styles = styled.div`
     .navbar {background-color: #4b2e83;}
     a, .navbar-nav, .navbar-light .nav-link {
     color: #b7a57a;
-    margin-right: 5px;
+    // margin-right: 5px;
     &:hover { color: white; }
   }
   .navbar-brand {
@@ -26,7 +27,16 @@ const Styles = styled.div`
 export const NavigationBar = () => (
   <Styles>
     <Navbar expand="lg">
-      <Navbar.Brand href="/"><b>HEATMAP</b></Navbar.Brand>
+      <Navbar.Brand href="/"><b>DAWG MAPS</b></Navbar.Brand>
+      <Navbar.Brand href="/">
+      <img
+        alt=""
+        src={Logo}
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+      />{' '}
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
