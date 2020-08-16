@@ -1,5 +1,5 @@
 import React from "react";
-import {GoogleMap, HeatmapLayer, LoadScript, Marker} from '@react-google-maps/api';
+import {GoogleMap, HeatmapLayer, LoadScript} from '@react-google-maps/api';
 import {db} from "./Database";
 
 const containerStyle = {
