@@ -23,7 +23,7 @@ class SideNav extends React.Component {
 export default class Sidebar extends React.Component {
     render() {
         return (
-            <sideNav></sideNav>
+            <SideNav></SideNav>
         );
     }
 }
