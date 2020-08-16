@@ -4,11 +4,10 @@ import Geocode from "react-geocode";
 import {db} from "./Database";
 
 const containerStyle = {
-    // width: '100%',
-    // height: '100vh'
-
+    marginTop:'10x',
+    top:'inherit',
     width: '100%',
-    height: '500px'
+    height: '84vh'
 };
 
 const libraries = ["visualization", "places"];
@@ -115,7 +114,8 @@ export default function Map(props) {
                             textOverflow: `ellipses`,
                             position: "absolute",
                             left: "50%",
-                            marginLeft: "-120px"
+                            marginLeft: "-120px",
+                            marginTop: "10px"
                         }}
                     />
                 </StandaloneSearchBox>

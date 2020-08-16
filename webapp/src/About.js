@@ -13,8 +13,9 @@ const GridWrapper = styled.div`
 
 export const About = () => (
   <GridWrapper>
-    <p>In response to the Covid-19 pandemic, we wanted to create an app that would allow
-    individuals to be more aware of populated areas. We designed an app that would gather user
-          location and generate a heatmap to notify users of densely populated areas. </p>
+    <p>In response to the COVID-19 pandemic, DawgMaps provides users with realtime information about
+large gatherings and crowds in their area to help users intelligently social distance.  
+We designed a native mobile app to crowdsource location data, compiled into a cloud database, and generated population density heatmaps on this online platform.
+Our team consists of 5 UW students, and we developed this project for the Hack'20 Hackathon.</p>
   </GridWrapper>
 )

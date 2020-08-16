@@ -11,13 +11,15 @@ const Styles = styled.div`
     color: #b7a57a;
     // margin-right: 5px;
     &:hover { color: white; }
-    &:focus { color: white; }
+    &:focus { color: #b7a57a; }
+    &:active{ color: #b7a57a; }
   }
   .navbar-brand {
     font-size: 1.4em;
     color: #b7a57a;
     &:hover { color: white; }
-    &:focus { color:white; }
+    &:focus { color: #b7a57a; }
+    &:active{ color: #b7a57a; }
   }
   .form-center {
     position: absolute !important;
