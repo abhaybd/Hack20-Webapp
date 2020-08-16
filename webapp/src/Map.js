@@ -13,7 +13,11 @@ const containerStyle = {
 
 const libraries = ["visualization", "places"];
 
-Geocode.setApiKey("AIzaSyAb1opXdUUzPE2NzzKwbDVpDowXreTkPpo");
+const mapOptions = {
+    disableDefaultUI: true
+}
+
+Geocode.setApiKey(process.env.REACT_APP_API_KEY);
 
 function renderHeatmap(data, LatLng, bounds) {
     // Za = latitude, Va = longitude
@@ -79,7 +83,7 @@ export default function Map(props) {
 
     return (
         <LoadScript
-            googleMapsApiKey="AIzaSyAb1opXdUUzPE2NzzKwbDVpDowXreTkPpo"
+            googleMapsApiKey={process.env.REACT_APP_API_KEY}
             libraries={libraries}
         >
             <GoogleMap
@@ -89,6 +93,7 @@ export default function Map(props) {
                 onLoad={onLoad}
                 onUnmount={onUnmount}
                 onIdle={onIdle}
+                options={mapOptions}
             >
                 <StandaloneSearchBox
                     onLoad={searchBoxLoad}
