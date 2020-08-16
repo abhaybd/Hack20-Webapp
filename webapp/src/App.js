@@ -2,12 +2,10 @@ import React from 'react';
 import './App.css';
 import Map from "./Map";
 
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Home } from './Home';
 import { About } from './About';
 import { NoMatch } from './NoMatch';
-
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NavigationBar } from './NavigationBar';
 import Sidebar from './Sidebar';
