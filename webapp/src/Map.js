@@ -25,23 +25,23 @@ function renderHeatmap(data, LatLng, bounds) {
 
 export default function Map(props) {
     const [map, setMap] = React.useState(null);
-    let currentLocation = {lat: 47.655548, lng: -122.303200};
-    let searchBox;
-    let marker;
+    const [searchBox, setSearchBox] = React.useState(null);
+    const [center, setCenterPos] = React.useState(props.center);
+    const [heatmap, setHeatmap] = React.useState(null);
+    const [started, setStarted] = React.useState(false);
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getPosition);
-    }
-
-    function getPosition(position) {
-        if (map) {
-            map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+    if (!started) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                let loc = {lat: position.coords.latitude, lng: position.coords.longitude};
+                console.log(loc);
+                setCenterPos(loc);
+                setStarted(true);
+            });
         }
-        currentLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
     }
 
     const onLoad = React.useCallback(function callback(map) {
-        map.setCenter(props.center)
         setMap(map);
     }, []);
 
@@ -49,31 +49,30 @@ export default function Map(props) {
         setMap(null);
     }, []);
 
-    let data;
-
     const heatmapLoad = layer => {
-        data = layer.data;
+        setHeatmap(layer);
     }
 
     const onIdle = () => {
-        renderHeatmap(data, window.google.maps.LatLng, map.getBounds());
+        if (heatmap.data) {
+            renderHeatmap(heatmap.data, window.google.maps.LatLng, map.getBounds());
+        }
     }
 
-    const searchBoxLoad = ref => searchBox = ref;
+    const searchBoxLoad = ref => setSearchBox(ref);
     const onPlacesChanged = () => Geocode.fromAddress(searchBox.getPlaces()[0]['formatted_address']).then(
         response => {
-            marker.position = response.results[0].geometry.location;
-            if(map) {
-                map.setCenter(marker.position)
+            let position = response.results[0].geometry.location;
+            console.log(position);
+            if (map) {
+                map.setCenter(position);
             }
-            console.log(marker.position)
+            setCenterPos(position);
         },
         error => {
             console.error(error);
         }
     );
-
-    const markerLoad = ref => marker = ref;
 
     return (
         <LoadScript
@@ -82,7 +81,7 @@ export default function Map(props) {
         >
             <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={props.center}
+                center={center}
                 zoom={props.zoom ?? 14}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
@@ -90,34 +89,30 @@ export default function Map(props) {
             >
                 <StandaloneSearchBox
                     onLoad={searchBoxLoad}
-                    onPlacesChanged={
-                        onPlacesChanged
-                    }
-                    >
+                    onPlacesChanged={onPlacesChanged}
+                >
                     <input
                         type="text"
-                        placeholder="Customized your placeholder"
+                        placeholder="Search"
                         style={{
-                        boxSizing: `border-box`,
-                        border: `1px solid transparent`,
-                        width: `240px`,
-                        height: `32px`,
-                        padding: `0 12px`,
-                        borderRadius: `3px`,
-                        boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                        fontSize: `14px`,
-                        outline: `none`,
-                        textOverflow: `ellipses`,
-                        position: "absolute",
-                        left: "50%",
-                        marginLeft: "-120px"
+                            boxSizing: `border-box`,
+                            border: `1px solid transparent`,
+                            width: `240px`,
+                            height: `32px`,
+                            padding: `0 12px`,
+                            borderRadius: `3px`,
+                            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                            fontSize: `14px`,
+                            outline: `none`,
+                            textOverflow: `ellipses`,
+                            position: "absolute",
+                            left: "50%",
+                            marginLeft: "-120px"
                         }}
                     />
                 </StandaloneSearchBox>
                 <Marker
-                    onLoad={markerLoad}
-                    onPositionChanged={markerLoad}
-                    position={currentLocation}
+                    position={center}
                 />
                 <HeatmapLayer data={[]} onLoad={heatmapLoad}/>
                 { /* Child components, such as markers, info windows, etc. */}
