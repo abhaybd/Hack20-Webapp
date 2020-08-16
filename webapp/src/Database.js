@@ -55,18 +55,39 @@ class Database {
 
         let precision = this.getPrecision(latDist, longDist);
 
-        const start = Geohash.encode(lat, long, precision);
-        const end = start.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
-        this.users
-            .where("location", ">=", start)
-            .where("location", "<", end)
-            .get()
-            .then(function (q) {
-                callback(q.docs.map(doc => {
+        let hash = Geohash.encode(lat, long, precision);
+
+        let hashes = [];
+        hashes.push(hash);
+        let neighbours = Geohash.neighbours(hash);
+        for (let n of Object.values(neighbours)) {
+            hashes.push(n);
+        }
+
+        console.log(hashes);
+
+        const users = this.users;
+        let promises = hashes.map(start => {
+            const end = start.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+            return users
+                .where("location", ">=", start)
+                .where("location", "<", end)
+                .get();
+        });
+
+        const now = Date.now();
+        Promise.all(promises).then(queries => {
+            let ret = [];
+            queries.forEach(q => {
+                q.docs.forEach(doc => {
                     const data = doc.data();
-                    return {lat: data.latitude, lng: data.longitude};
-                }));
+                    if (now - data.timestamp < 30*60*1000) { // 30 mins
+                        ret.push({lat: data.latitude, lng: data.longitude});
+                    }
+                });
             });
+            callback(ret);
+        });
     }
 }
 
