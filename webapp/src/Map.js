@@ -22,18 +22,19 @@ function renderHeatmap(data, LatLng, bounds) {
 
 export default function Map(props) {
     const [map, setMap] = React.useState(null);
-    let currentLocation = {lat: 47.655548, lng: -122.303200};
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(getPosition);
     }
 
     function getPosition(position) {
-        currentLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+        if (map) {
+            map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+        }
     }
 
     const onLoad = React.useCallback(function callback(map) {
-        map.setCenter(currentLocation)
+        map.setCenter(props.center)
         setMap(map);
     }, []);
 
