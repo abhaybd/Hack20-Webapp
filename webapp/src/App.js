@@ -1,43 +1,11 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
-
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Toast from 'react-bootstrap/Toast';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-
-
+import React from 'react';
 import './App.css';
+import Map from "./Map";
 
-// SAMPLE CODE - WILL BE CHANGED
-const ExampleToast = ({ children }) => {
-  const [show, toggleShow] = useState(true);
-
-  return (
-    <>
-      {!show && <Button onClick={() => toggleShow(true)}>Show Toast</Button>}
-      <Toast show={show} onClose={() => toggleShow(false)}>
-        <Toast.Header>
-          <strong className="mr-auto">React-Bootstrap</strong>
-        </Toast.Header>
-        <Toast.Body>{children}</Toast.Body>
-      </Toast>
-    </>
-  );
-};
+const uw = {lat: 47.655548, lng: -122.303200};
 
 const App = () => (
-  <Container className="p-3">
-    <Jumbotron>
-      <h1 className="header">Welcome To React-Bootstrap</h1>
-      <ExampleToast>
-        We now have Toasts
-        <span role="img" aria-label="tada">
-          🎉
-        </span>
-      </ExampleToast>
-    </Jumbotron>
-  </Container>
+  <Map center={uw}/>
 );
 
 export default App;
