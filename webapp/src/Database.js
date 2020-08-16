@@ -13,7 +13,7 @@ const config = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-export default class Database {
+class Database {
     constructor() {
         firebase.initializeApp(config);
         this.firestore = firebase.firestore();
@@ -49,3 +49,7 @@ export default class Database {
             });
     }
 }
+
+const db = new Database();
+
+export {db};
