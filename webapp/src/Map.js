@@ -5,10 +5,11 @@ import {db} from "./Database";
 
 const containerStyle = {
     position: 'fixed',
-    marginTop:'10x',
+    overflowY:'hidden',
+    marginTop:'5px',
     top:'inherit',
     width: '100%',
-    height: '100vh'
+    height: '85vh'
 };
 
 const libraries = ["visualization", "places"];
