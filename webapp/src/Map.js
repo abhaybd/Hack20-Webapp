@@ -19,10 +19,19 @@ function renderHeatmap(data, google, lat, long, p) {
 
 export default function Map(props) {
     const [map, setMap] = React.useState(null);
+    let currentLocation = {lat: 47.655548, lng: -122.303200};
+
+    if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getPosition);
+    }
+
+    function getPosition(position) {
+    currentLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+    }
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
-        map.fitBounds(bounds);
+        map.setCenter(currentLocation)
         setMap(map);
     }, []);
 
@@ -34,11 +43,7 @@ export default function Map(props) {
 
     const heatmapLoad = layer => {
         data = layer.data;
-        renderHeatmap(data, window.google, 0,0,1);
-    }
-
-    const zoomChanged = () => {
-        renderHeatmap(data, window.google, )
+        renderHeatmap(data, window.google, 0, 0, 1);
     }
 
     return (
@@ -49,7 +54,7 @@ export default function Map(props) {
             <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={props.center}
-                zoom={props.zoom ?? 10}
+                zoom={props.zoom ?? 14}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
             >
